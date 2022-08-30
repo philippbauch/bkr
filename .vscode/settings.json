@@ -5,6 +5,10 @@
   "files.associations": {
     "*.scss": "tailwindcss"
   },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#4f46e5",
+    "titleBar.inactiveBackground": "#4338ca"
+  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "tailwindCSS.emmetCompletions": true,
