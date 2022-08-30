@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id         Int       @id
+  createdAt  DateTime  @default(now())
+  name       String
+  members    String[]
+  startedAt  DateTime?
+  finishedAt DateTime?
+  results    Result[]
+  events     Event[]
+}
+
+model Station {
+  id        Int      @id
+  createdAt DateTime @default(now())
+  name      String
+  members   String[]
+  code      String   @unique
+  results   Result[]
+  events    Event[]
+}
+
+model Result {
+  team      Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    Int
+  station   Station   @relation(fields: [stationId], references: [id], onDelete: Cascade)
+  stationId Int
+  arrivedAt DateTime  @default(now())
+  beganAt   DateTime?
+  leftAt    DateTime?
+  points    Int       @default(0)
+
+  @@id([teamId, stationId])
+}
+
+model Event {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  team      Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    Int
+  station   Station?  @relation(fields: [stationId], references: [id], onDelete: Cascade)
+  stationId Int?
+  type      EventType
+}
+
+enum EventType {
+  RUN_IN
+  RUN_OUT
+  STATION_IN
+  STATION_OUT
+}
