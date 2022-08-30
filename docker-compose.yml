@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:14
+    volumes:
+      - data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=bkr2022
+      - POSTGRES_USER=bkr2022
+      - POSTGRES_DB=bkr2022
+
+volumes:
+  data:
